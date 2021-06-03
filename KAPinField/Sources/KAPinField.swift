@@ -642,6 +642,7 @@ public enum KA_MonospacedFont {
     case menloBoldItalic(CGFloat)
     case menloItalic(CGFloat)
     case menlo(CGFloat)
+    case openSansBold(CGFloat)
     
     func font() -> UIFont {
         switch self {
@@ -669,6 +670,8 @@ public enum KA_MonospacedFont {
             return UIFont(name: "Menlo-Italic", size: size)!
         case .menlo(let size) :
             return UIFont(name: "Menlo-Regular", size: size)!
+        case .openSansBold(let size):
+            return UIFont(name: "OpenSans-Bold", size: size)!
         }
     }
 }
