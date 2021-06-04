@@ -96,9 +96,26 @@ public class KAPinField : UITextField {
         }
     }
     
-    public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        return action == #selector(paste(_:)) // Only allow pasting
+    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(paste(_:)) ||
+            action == #selector(cut(_:)) ||
+            action == #selector(copy(_:)) ||
+            action == #selector(select(_:)) ||
+            action == #selector(selectAll(_:)) ||
+            action == #selector(delete(_:)) ||
+            action == #selector(makeTextWritingDirectionLeftToRight(_:)) ||
+            action == #selector(makeTextWritingDirectionRightToLeft(_:)) ||
+            action == #selector(toggleBoldface(_:)) ||
+            action == #selector(toggleItalics(_:)) ||
+            action == #selector(toggleUnderline(_:)) {
+            return false
+        }
+        return super.canPerformAction(action, withSender: sender)
     }
+    
+//    public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+//        return action == #selector(paste(_:)) // Only allow pasting
+//    }
     
     // Mark: - Private vars
     
@@ -643,6 +660,7 @@ public enum KA_MonospacedFont {
     case menloItalic(CGFloat)
     case menlo(CGFloat)
     case openSansBold(CGFloat)
+    case customeFont(String, CGFloat)
     
     func font() -> UIFont {
         switch self {
@@ -672,6 +690,8 @@ public enum KA_MonospacedFont {
             return UIFont(name: "Menlo-Regular", size: size)!
         case .openSansBold(let size):
             return UIFont(name: "OpenSans-Bold", size: size)!
+        case .customeFont(let name, let size):
+            return UIFont(name: name, size: size)!
         }
     }
 }
